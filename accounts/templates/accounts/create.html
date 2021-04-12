@@ -1,0 +1,26 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div id="form" style="height: 680px;">
+    <h2>Sign Up</h2>
+    <form action="{% url 'accounts:create' %}" method="post">
+        {% csrf_token %}
+        <label>ユーザーID</label>
+        {{form.username}}
+        <label>フルネーム</label>
+        {{form.full_name}}
+        <br>
+        <label>パスワード</label>
+        {{ form.password1 }}
+        <label>パスワード(確認)</label>
+        {{ form.password2 }}
+        <input type="submit" value="アカウント作成">
+    </form>
+    <div class="login_account"><a href="{% url 'accounts:login' %}">アカウントをお持ちですか？</a></div>
+</div>
+{% endblock content %}

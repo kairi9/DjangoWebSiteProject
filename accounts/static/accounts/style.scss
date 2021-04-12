@@ -1,0 +1,124 @@
+html,
+body {
+    width: 100%;
+    height: 100vh;
+    min-height: 800px;
+    margin: 0;
+    background: linear-gradient(#E6E6E6, #bbbbbb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a:link {
+    text-decoration: none;
+    color: #1161ed;
+}
+
+#form {
+    width: 525px;
+    background-image: url("https://chenyiya.com/codepen/day001.jpg");
+    box-shadow: 0px 30px 65px -15px #000;
+    padding: 40px 60px;
+    box-sizing: border-box;
+    h2{
+        font-size: 1.35rem;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 1);
+        position: relative;
+        text-align: center;
+    }
+
+    p{
+        font-size: 1.35rem;
+        letter-spacing: 0.5px;
+        font-weight: 800;
+        color: rgba($color: #ff2d2d, $alpha: 1.0);
+        position: relative;
+        text-align: center;
+    }
+
+    form{
+        input{
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+            line-height: 38px;
+            padding: 0 20px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0);
+            border-radius: 19px;
+            box-sizing: border-box;
+            transition: all 0.5s;
+            &:focus{
+                display: block;
+                outline: none;
+                border: 2px solid rgba(255, 255, 255, 0.5);
+                background: transparent;
+            }
+        }
+
+        label{
+            display: block;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.75rem;
+            padding: 8px 0px 0 20px;
+            line-height: 40px;
+        }
+
+        input[type="submit"] {
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+            line-height: 40px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #fff;
+            background: #1161ED;
+            transition: all 0.5s;
+            outline: none;
+            margin-top: 48px;
+            &:hover{
+                background: #4082f5;
+                box-shadow: 0px 4px 60px -15px #1161ED;
+                cursor: pointer;
+            }
+        }
+    }
+    .create_account{
+        padding-top: 40px;
+        text-align: center;
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+        margin-top: 60px;
+        a {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: all 0.5s;
+            &:hover{
+                color: rgba(255, 255, 255, 1);
+                cursor: pointer;
+            }
+        }
+    }
+    
+    .login_account{
+        padding-top: 40px;
+        text-align: center;
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+        margin-top: 30px;
+        a {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: all 0.5s;
+            &:hover{
+                color: rgba(255, 255, 255, 1);
+                cursor: pointer;
+            }
+        }
+    }
+}

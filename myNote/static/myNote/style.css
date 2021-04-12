@@ -1,0 +1,573 @@
+* {
+  list-style: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.scdColor {
+  color: #9099b7;
+}
+
+.no_disp {
+  display: none;
+}
+
+.current_page {
+  background-color: #2b3355;
+  border-left: 5px solid #1f253d;
+  border-top: 5px solid #1f253d;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #1f253d;
+  color: #fff;
+  height: 100%;
+  text-align: center;
+}
+
+body #wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+body #wrapper #sidebar, body #wrapper #main, body #wrapper #details {
+  height: 100%;
+  float: left;
+}
+
+body #wrapper #sidebar {
+  width: 20%;
+}
+
+body #wrapper #sidebar .header {
+  margin: 30px 16px;
+  height: 90%;
+}
+
+body #wrapper #sidebar .header .head {
+  height: 12%;
+  margin: 0 0 10% 0;
+  background-color: #11a8ab;
+  position: relative;
+}
+
+body #wrapper #sidebar .header .head h1 {
+  font-size: 26pt;
+  font-weight: 800;
+  letter-spacing: 3px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+body #wrapper #sidebar .header .menu_list {
+  height: 84%;
+  margin: 0 0;
+}
+
+body #wrapper #sidebar .header .menu_list h2 {
+  background-color: #e64c65;
+  padding: 14px 0;
+  border-radius: 10px 10px 0 0;
+  font-weight: 400;
+  font-size: large;
+}
+
+body #wrapper #sidebar .header .menu_list ul li {
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #1f253d;
+}
+
+body #wrapper #sidebar .header .menu_list ul li:hover {
+  border-left: none;
+  border-top: none;
+}
+
+body #wrapper #sidebar .header .menu_list ul li a {
+  line-height: 60px;
+  display: block;
+  -webkit-transition: background .2s;
+  transition: background .2s;
+  color: #fff;
+  text-decoration: none;
+}
+
+body #wrapper #sidebar .header .menu_list ul li a:hover {
+  background: #50597b;
+  border-top: 1px solid #1f253d;
+  text-decoration: none;
+}
+
+body #wrapper #sidebar .header .menu_list p {
+  margin-top: 20px;
+}
+
+body #wrapper #main {
+  width: 55%;
+}
+
+body #wrapper #details {
+  width: 25%;
+}
+
+body #wrapper #details #right_content {
+  height: 90%;
+}
+
+body #wrapper #details #right_content .sche_conte {
+  height: 48%;
+}
+
+body #wrapper #details #right_content .sche_conte .date_head {
+  background-color: #e64c65;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 10px;
+  height: 15%;
+  position: relative;
+}
+
+body #wrapper #details #right_content .sche_conte .date_head h2 {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule {
+  height: 80%;
+  position: relative;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule h3 {
+  height: 10%;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule .sche_titles {
+  padding-top: 20px;
+  height: 90%;
+  width: 20%;
+  float: left;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule .sche_titles ul li {
+  cursor: pointer;
+  border-right: 3px solid #1f253d;
+  border-bottom: 3px solid #1f253d;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule .sche_titles ul li:hover {
+  color: #e64c65;
+  background-color: #2b3355;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule .sche_titles ul .li_active {
+  background-color: #2b3355;
+  border-right: none;
+  border-bottom: none;
+  border-left: 5px solid #1f253d;
+  border-top: 5px solid #1f253d;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule #sche_table {
+  padding-top: 10px;
+  width: 80%;
+  float: right;
+  height: 90%;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule #sche_table table {
+  width: 100%;
+  height: 100%;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule #sche_table table tr th {
+  color: rgba(255, 255, 255, 0.35);
+  padding: 1px 4px;
+  height: 14%;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule #sche_table table tr td .change-btn {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #11a8ab;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  border-radius: 16px 0 0 16px;
+  height: 100%;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule #sche_table table tr td .change-btn:hover {
+  background: #0f9294;
+  -webkit-box-shadow: 0px 4px 60px -15px #e64c65;
+          box-shadow: 0px 4px 60px -15px #e64c65;
+  cursor: pointer;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule #sche_table table tr td .delete-btn {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #e64c65;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  border-radius: 0 16px 16px 0;
+  height: 100%;
+}
+
+body #wrapper #details #right_content .sche_conte #date_schedule #sche_table table tr td .delete-btn:hover {
+  background: #b43c50;
+  -webkit-box-shadow: 0px 4px 60px -15px #e64c65;
+          box-shadow: 0px 4px 60px -15px #e64c65;
+  cursor: pointer;
+}
+
+body #wrapper #details #right_content .sche_form {
+  height: 48%;
+}
+
+body #wrapper #details #right_content .sche_form .sche_form_head {
+  background-color: #e64c65;
+  border-radius: 10px 10px 0 0;
+  height: 15%;
+  position: relative;
+}
+
+body #wrapper #details #right_content .sche_form .sche_form_head h2 {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+body #wrapper #details #right_content .sche_form form {
+  height: 85%;
+}
+
+body #wrapper #details #right_content .sche_form form table {
+  width: 100%;
+  padding-top: 3px;
+  height: 100%;
+}
+
+body #wrapper #details #right_content .sche_form form table tr {
+  width: 100%;
+}
+
+body #wrapper #details #right_content .sche_form form table tr th {
+  color: rgba(255, 255, 255, 0.35);
+  padding: 2px 4px;
+  width: 30%;
+}
+
+body #wrapper #details #right_content .sche_form form table tr td {
+  width: 70%;
+  height: 14.2%;
+}
+
+body #wrapper #details #right_content .sche_form form table tr td input {
+  font-family: 'Montserrat', sans-serif;
+  width: 80%;
+  color: #fff;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 19px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  padding-left: 10px;
+}
+
+body #wrapper #details #right_content .sche_form form table tr td input:focus {
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+}
+
+body #wrapper #details #right_content .sche_form form table tr td input[type="submit"] {
+  font-family: 'Montserrat', sans-serif;
+  width: 25%;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  background: #11a8ab;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  padding: 5px 0;
+}
+
+body #wrapper #details #right_content .sche_form form table tr td input[type="submit"]:hover {
+  background: #0f9294;
+  -webkit-box-shadow: 0px 4px 60px -15px #11a8ab;
+          box-shadow: 0px 4px 60px -15px #11a8ab;
+  cursor: pointer;
+}
+
+body #wrapper .content {
+  margin: 30px 16px;
+  background-color: #394264;
+  border-radius: 10px;
+  height: 90%;
+}
+
+#schedule_detail {
+  height: 100%;
+}
+
+#schedule_detail table {
+  width: 100%;
+  height: 100%;
+}
+
+#schedule_detail table thead .t-title {
+  border-radius: 10px 10px 0 0;
+}
+
+#schedule_detail table thead .t-title th {
+  height: 44px;
+}
+
+#schedule_detail table thead .t-title th .btn {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #e64c65;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+#schedule_detail table thead .t-title th .btn:hover {
+  background: #b43c50;
+  -webkit-box-shadow: 0px 4px 60px -15px #e64c65;
+          box-shadow: 0px 4px 60px -15px #e64c65;
+  cursor: pointer;
+}
+
+#schedule_detail table thead .t-title th #nextmonth {
+  border-radius: 0 10px 0 0;
+  border-left: 1px solid #a53144;
+}
+
+#schedule_detail table thead .t-title th #premonth {
+  border-radius: 10px 0 0 0;
+  border-right: 1px solid #a53144;
+}
+
+#schedule_detail table thead .t-title .month {
+  background-color: #e64c65;
+  color: #fff;
+}
+
+#schedule_detail table thead .week_header th {
+  border-right: 1px solid #11a8ab;
+}
+
+#schedule_detail table thead tr {
+  color: #11a8ab;
+}
+
+#schedule_detail table thead tr th {
+  height: 34px;
+}
+
+#schedule_detail table tbody tr td {
+  height: 18%;
+  width: 14.2%;
+  border-right: 5px solid #1f253d;
+  border-bottom: 5px solid #1f253d;
+  vertical-align: top;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+#schedule_detail table tbody tr td ul {
+  padding-top: 10px;
+}
+
+#schedule_detail table tbody tr td ul li {
+  font-weight: 800;
+  font-size: 12px;
+}
+
+#schedule_detail table tbody tr td ul li .strat_time {
+  font-weight: 400;
+  padding-left: 5px;
+}
+
+#schedule_detail table tbody tr td:hover {
+  background-color: #48547e;
+}
+
+#schedule_detail table tbody tr .active {
+  background-color: #2b3355;
+  border-left: 7px solid #1f253d;
+  border-top: 7px solid #1f253d;
+  font-weight: 600;
+}
+
+#schedule_detail table tbody tr .active .day {
+  background-color: #fff;
+  color: #1f253d;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+#schedule_detail table tbody tr .today .day {
+  background-color: #e64c65;
+  border-radius: 50%;
+  padding: 3px 4px;
+}
+
+.alert {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: #394264d8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+
+.alert h2 {
+  font-size: xx-large;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  color: #fff;
+}
+
+.alert table {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: x-large;
+  background-color: #1f253d;
+  border-radius: 16px;
+  padding: 20px 10px;
+}
+
+.alert table tr {
+  width: 100%;
+}
+
+.alert table tr th {
+  color: rgba(255, 255, 255, 0.35);
+  padding: 2px 4px;
+  width: 50%;
+}
+
+.alert table tr td {
+  width: 50%;
+}
+
+.alert table tr td input {
+  font-family: 'Montserrat', sans-serif;
+  font-size: large;
+  width: 80%;
+  color: #fff;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 19px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  padding-left: 10px;
+}
+
+.alert table tr td input:focus {
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+}
+
+.alert table tr td input[type="button"] {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #e64c65;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  width: 80%;
+  padding: 12px 0;
+  margin-top: 12px;
+}
+
+.alert table tr td input[type="button"]:hover {
+  background: #b43c50;
+  -webkit-box-shadow: 0px 4px 60px -15px #e64c65;
+          box-shadow: 0px 4px 60px -15px #e64c65;
+  cursor: pointer;
+}
+
+.alert table tr td input[type="submit"] {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #11a8ab;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  width: 80%;
+  padding: 12px 0;
+  margin-top: 12px;
+}
+
+.alert table tr td input[type="submit"]:hover {
+  background: #0f9294;
+  -webkit-box-shadow: 0px 4px 60px -15px #e64c65;
+          box-shadow: 0px 4px 60px -15px #e64c65;
+  cursor: pointer;
+}
+
+#note_main {
+  width: 80%;
+}
+
+#note_main .note {
+  width: 90%;
+}
+/*# sourceMappingURL=style.css.map */

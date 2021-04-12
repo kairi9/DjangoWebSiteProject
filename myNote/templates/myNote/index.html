@@ -1,0 +1,51 @@
+{% extends 'myNote/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'myNote/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div id="main">
+  <div class="content">
+    <div id="schedule_detail"></div>
+  </div>
+</div>
+<div id="details">
+  <div id="right_content">
+    <div class="content sche_conte">
+      <div class="date_head">
+        <h2>こんにちは、<span id='username'>{{username}}</span>さん</h2>
+      </div>
+      <div id="date_schedule"></div>
+    </div>
+    <div class="content sche_form">
+      <div class="sche_form_head">
+        <h2>ToDo追加</h2>
+      </div>
+      <form action="{% url 'myNote:schedule' %}" method="post">
+        {% csrf_token %}
+        <table>
+          <tr><th>やること</th><td>{{form.title}}</td></tr>
+          <tr><th>開始時間</th><td>{{form.start_time}}</td></tr>
+          <tr><th>終了時間</th><td>{{form.end_time}}</td></tr>
+          <tr><th>日付</th><td>{{form.date}}</td></tr>
+          <tr><th>DONE</th><td>{{form.done}}</td></tr>
+          <tr><th>詳細</th><td>{{form.discription}}</td></tr>
+          <tr><td colspan="2"><input type="submit" value="追加"></td></tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="alert">
+  <h2></h2>
+  <div class="alert_cont">
+    <form action="{% url 'myNote:change' %}" method="post" id="alert_form">
+      {% csrf_token %}
+      <table>
+        
+      </table>
+    </form>
+  </div>
+</div>
+{% endblock content %}
