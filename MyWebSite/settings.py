@@ -25,7 +25,7 @@ SECRET_KEY = '&7_varmk^ez&@bwne$wkzc5$*ifrd9yfaba@kfks7dqzn@&30*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec2-54-238-57-49.ap-northeast-1.compute.amazonaws.com','127.0.0.1']
+ALLOWED_HOSTS = ['ec2-54-238-57-49.ap-northeast-1.compute.amazonaws.com','127.0.0.1','273d2a7a9353.ngrok.io']
 
 
 # Application definition
@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
