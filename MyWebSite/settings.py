@@ -25,7 +25,11 @@ SECRET_KEY = '&7_varmk^ez&@bwne$wkzc5$*ifrd9yfaba@kfks7dqzn@&30*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['ec2-54-238-57-49.ap-northeast-1.compute.amazonaws.com','127.0.0.1','273d2a7a9353.ngrok.io']
+=======
+ALLOWED_HOSTS = ['ec2-54-238-57-49.ap-northeast-1.compute.amazonaws.com','127.0.0.1']
+>>>>>>> 549365c78eac2ecb9222d40de1e899364b505c41
 
 
 # Application definition
