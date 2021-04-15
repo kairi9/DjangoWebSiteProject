@@ -5,7 +5,7 @@ from myNote.models import CalendarToDo
 from django.contrib.auth import authenticate
 from .models import LineAccount
 
-URL = "https://273d2a7a9353.ngrok.io/lineapp/login/"
+URL = "https://4819bd20f7ab.ngrok.io/lineapp/login/"
 line_bot_api = LineBotApi('iAgGuMTLq1lnXg1jpTdbEIG/yKZV9bkCNEpWtYRjI0Ix+DVAcMmq/0+D+km53QPkB168PW1k5a/hhFILx2gOwHEvVsh7fxHdeg+VXvGpjaDSpHrSqvsqN5tWB+oQMbkYl0H8Uv5xsD9/w2OlxW7x+QdB04t89/1O/w1cDnyilFU=')
 
 def push_message(user_id,text):

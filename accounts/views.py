@@ -20,7 +20,7 @@ class Create_account(CreateView):
             full_name = form.cleaned_data.get('full_name')
             user = authenticate(username=username, full_name=full_name, password=password)
             login(request, user)
-            return redirect('/login')
+            return redirect('/')
         return render(request,'accounts/create.html',{'form':form,})
     def get(self, request, *args, **kwargs):
         form = MyUserCreateForm(request.POST)

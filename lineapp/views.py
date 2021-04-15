@@ -33,5 +33,5 @@ class LineView(View):
                 line_bot.postback_event()
             else:
                 pass
-
+        return HttpResponse(status=200)
         
