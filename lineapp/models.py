@@ -9,8 +9,8 @@ class LineAccount(models.Model):
     get_user_model(),
     on_delete=models.CASCADE,
   )
-  line_id = models.CharField(max_length=150)
+  line_id = models.CharField(max_length=150,unique=True)
   date = models.DateField(auto_now=False,auto_now_add=True)
 
   def __str__(self):
-    return self.line_id
+    return str(self.username)

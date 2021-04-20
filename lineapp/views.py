@@ -12,6 +12,7 @@ from .linebot import push_message
 
 # Create your views here.
 class LineLoginView(LoginRequiredMixin,View):
+    redirect_field_name = 'next'
     def get(self,request,line_id):
         a = LineAccount(username=request.user,line_id=line_id)
         a.save()
@@ -23,10 +24,19 @@ class LineView(View):
     def post(self,request):
         req = json.loads(request.body.decode('utf-8'))
         events = req['events']
+        print(events)
         for event in events:
             line_bot = LineBot(event)
             if event["type"] == "message":
-                line_bot.message_event(event["message"]["text"])
+                message = event["message"]["text"]
+                if message == "今日の予定！":
+                    line_bot.send_carousel()
+                elif message == "予定の追加！":
+                    pass
+                elif message == "予定の変更！":
+                    pass
+                else:
+                    line_bot.message_event(message)
             elif  event["type"] == "follow":
                 line_bot.follow_event()
             elif  event["type"] == "postback":
@@ -34,4 +44,3 @@ class LineView(View):
             else:
                 pass
         return HttpResponse(status=200)
-        

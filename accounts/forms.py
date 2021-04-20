@@ -13,7 +13,7 @@ class MyUserCreateForm(UserCreationForm):
 
     class Meta:
         model = MyUser
-        fields = ("username","full_name", "password1", "password2",)
+        fields = ("username","full_name","password1","password2",)
 
 #ユーザーログイン
 class MyLoginForm(AuthenticationForm):
