@@ -69,6 +69,11 @@ body #wrapper #sidebar .header .head h1 {
   width: 100%;
 }
 
+body #wrapper #sidebar .header .head h1 .logo_img img {
+  height: 26px;
+  border-radius: 50%;
+}
+
 body #wrapper #sidebar .header .menu_list {
   height: 84%;
   margin: 0 0;

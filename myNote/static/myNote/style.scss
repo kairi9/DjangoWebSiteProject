@@ -78,6 +78,12 @@ body{
                         left: 50%;
                         transform: translate(-50%,-50%);
                         width: 100%;
+                        .logo_img{
+                            img{
+                                height: 26px;
+                                border-radius: 50%;
+                            }
+                        }
                     }
                 }
                 .menu_list{

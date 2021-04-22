@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .linebot import push_message
 
 
-# Create your views here.
+#LINEアカウントとの連携用
 class LineLoginView(LoginRequiredMixin,View):
     redirect_field_name = 'next'
     def get(self,request,line_id):
@@ -19,12 +19,11 @@ class LineLoginView(LoginRequiredMixin,View):
         push_message(line_id,"ログインに成功しました！")
         return HttpResponse('success')
 
-
+#LINEBot用
 class LineView(View):
     def post(self,request):
         req = json.loads(request.body.decode('utf-8'))
         events = req['events']
-        print(events)
         for event in events:
             line_bot = LineBot(event)
             if event["type"] == "message":
