@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = '&7_varmk^ez&@bwne$wkzc5$*ifrd9yfaba@kfks7dqzn@&30*'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 # Application definition
 
 INSTALLED_APPS = [
