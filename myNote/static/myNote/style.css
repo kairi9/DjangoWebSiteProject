@@ -296,7 +296,7 @@ body #wrapper #details #right_content .sche_form form table tr td {
   height: 14.2%;
 }
 
-body #wrapper #details #right_content .sche_form form table tr td input {
+body #wrapper #details #right_content .sche_form form table tr td input, body #wrapper #details #right_content .sche_form form table tr td textarea {
   font-family: 'Montserrat', sans-serif;
   width: 80%;
   color: #fff;
@@ -311,7 +311,7 @@ body #wrapper #details #right_content .sche_form form table tr td input {
   padding-left: 10px;
 }
 
-body #wrapper #details #right_content .sche_form form table tr td input:focus {
+body #wrapper #details #right_content .sche_form form table tr td input:focus, body #wrapper #details #right_content .sche_form form table tr td textarea:focus {
   outline: none;
   border: 2px solid rgba(255, 255, 255, 0.5);
   background: transparent;
@@ -574,5 +574,144 @@ body #wrapper .content {
 
 #note_main .note {
   width: 90%;
+}
+
+#my_code_menu {
+  text-align: left;
+  background-color: #2b3355;
+  height: 100%;
+  border-radius: 10px;
+}
+
+#my_code_menu .menu_content h2 {
+  padding: 16px 0 0 16px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #50597b;
+  cursor: pointer;
+}
+
+#my_code_menu .menu_content .menu_item {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  border-radius: 10px;
+  margin-left: 16px;
+  position: relative;
+  background-color: #50597b;
+  -webkit-box-shadow: 0px 4px 60px -15px #1f253d;
+          box-shadow: 0px 4px 60px -15px #1f253d;
+}
+
+#my_code_menu .menu_content .menu_item:hover {
+  background-color: #2b3355;
+}
+
+#my_code_menu .menu_content .menu_item h3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: medium;
+}
+
+#editor {
+  height: 100%;
+}
+
+#editor #editor_header {
+  width: 100%;
+  height: 5%;
+}
+
+#editor #editor_header #code_title {
+  width: 50%;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+
+#editor #editor_header #code_title h2 {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  text-align: left;
+}
+
+#editor #editor_header #code_date {
+  width: 20%;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+
+#editor #editor_header #code_date h4 {
+  font-weight: 400;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  text-align: left;
+}
+
+#editor #editor_header #code_date h4 span {
+  font-weight: 600;
+}
+
+#editor #editor_header .edit {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #11a8ab;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  border-radius: 16px;
+  height: 100%;
+  width: 15%;
+  float: left;
+}
+
+#editor #editor_header .edit:hover {
+  background: #0f9294;
+  -webkit-box-shadow: 0px 4px 60px -15px #e64c65;
+          box-shadow: 0px 4px 60px -15px #e64c65;
+  cursor: pointer;
+}
+
+#editor #editor_header .delete {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: #e64c65;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  outline: none;
+  border-radius: 16px;
+  height: 100%;
+  width: 15%;
+  float: left;
+}
+
+#editor #editor_header .delete:hover {
+  background: #b43c50;
+  -webkit-box-shadow: 0px 4px 60px -15px #e64c65;
+          box-shadow: 0px 4px 60px -15px #e64c65;
+  cursor: pointer;
+}
+
+#editor #editor_body {
+  width: 100%;
+  height: 95%;
+  text-align: left;
+}
+
+#editor #editor_body .vue-codemirror {
+  height: 100%;
 }
 /*# sourceMappingURL=style.css.map */

@@ -11,6 +11,8 @@ urlpatterns = [
     path('sche_change/<int:id>/',views.change_sche_view,name='change_post'),
     path('sche_del/',views.DelScheduleAjax.as_view(),name='del'),
     path('sche_del/<int:id>/',views.del_sche_view,name='del_post'),
+    #task
+    path('task/',views.Task.as_view(),name='task'),
     #note
     path('note/',views.Note.as_view(),name='note'),
 ]

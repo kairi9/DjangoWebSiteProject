@@ -2,7 +2,7 @@ var today = new Date();
 var thisDay = today.getDate();
 var thisYear = today.getFullYear();
 var thisMonth = today.getMonth()+1;
-const base_url = "https://ec2-54-238-57-49.ap-northeast-1.compute.amazonaws.com/";
+const base_url = "http://127.0.0.1:8000/";
 const url1 = "ajax_view/";
 const url2 = "schedule_view/";
 const url3 = "sche_change/";
@@ -97,7 +97,7 @@ $(function(){
 
     if(location.pathname === '/'){
         $('.todo').addClass('current_page');
-    }else if(location.pathname === 'note/'){
+    }else if(location.pathname === '/note/'){
         $('.mycode').addClass('current_page');
     }
 })

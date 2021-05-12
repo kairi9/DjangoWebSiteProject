@@ -1,0 +1,14 @@
+{% extends 'myNote/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'myNote/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div id="main">
+  <div class="content"></div>
+</div>
+<div id="details">
+ <div class="content"></div>
+</div>
+{% endblock content %}

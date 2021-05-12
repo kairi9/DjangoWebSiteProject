@@ -2,13 +2,109 @@
 {% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'myNote/style.css' %}">
+<link rel="stylesheet" href="{% static 'myNote/node_modules/codemirror/lib/codemirror.css' %}">
+<script type="text/javascript" src="{% static 'myNote/node_modules/codemirror/lib/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'myNote/node_modules/vue/dist/vue.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'myNote/node_modules/vue-codemirror/dist/vue-codemirror.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'myNote/node_modules/codemirror/mode/javascript/javascript.js' %}"></script>
+<link rel="stylesheet" href="{% static 'myNote/node_modules/codemirror/theme/ambiance.css' %}">
 {% endblock head %}
 
 {% block content %}
 <div id="main">
-  <div class="content"></div>
+  <div class="content">
+    <div id="my_code_menu">
+      <div id="new_code" class="menu_content">
+        <h2>新規作成</h2>
+        <div class="menu_item" v-on:click="showEditor"><h3>新しく<br>コードを書く</h3></div>
+        <div class="menu_item" v-on:click="showFileUploadForm"><h3>ファイル<br>から追加</h3></div>
+      </div>
+      <div id="my_codes" class="menu_content">
+        <h2>コードを見る</h2>
+        <div class="menu_item"><h3>言語<br>から探す</h3></div>
+        <div class="menu_item"><h3>日付<br>から検索</h3></div>
+      </div>
+    </div>
+    <div id="file_upload" class="no_disp">
+      <h2>ファイルをアップロード</h2>
+      <form action="{% url 'myNote:note' %}" method="post">
+        {% csrf_token %}
+        <table>
+          <tr><td colspan="2">{{form.code_file}}</td></tr>
+          <tr><th>ファイルの説明：</th><td>{{form.discription}}</td></tr>
+          <tr><td colspan="2"><input type="submit" value="追加"></td></tr>
+        </table>
+      </form>
+    </div>
+    <div id="editor" class="no_disp">
+      <div id="editor_header">
+        <div id="code_title">
+          <h2>Title</h2>
+        </div>
+        <div id="code_date">
+          <h4>保存した日 <span>5/10</span></h4>
+        </div>
+        <button class="edit">Edit</button>
+        <button class="delete">Delete</button>
+      </div>
+      <div id="editor_body">
+        <template>
+          <codemirror v-model="code" :options="cmOptions"></codemirror>
+        </template>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="details">
- <div class="content"></div>
+  <div class="content">
+    <div id="archive">
+      <h2>アーカイブ</h2>
+      <div class="archive_list">
+        <ul>
+          {% for data in datas %}
+            <li>{{data.title}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  new Vue({
+    el: '#my_code_menu',
+    data: {
+
+    },
+    methods: {
+      showEditor: function(){
+        $('#my_code_menu').addClass('no_disp')
+        $('#editor').removeClass('no_disp')
+      },
+      showFileUploadForm: function(){
+        $('#my_code_menu').addClass('no_disp')
+        $('#file_upload').removeClass('no_disp')
+      }
+    }
+  });
+
+  Vue.use(window.VueCodemirror)
+  new Vue({
+    el: '#editor_body',
+    data: {
+      code: '//コード',
+      cmOptions: {
+        tabSize: 4,
+        styleActiveLine: true,
+        lineNumbers: true,
+        line: true,
+        mode: 'text/javascript',
+        lineWrapping: true,
+        theme: 'ambiance',
+        autocorrect: true,
+      }
+    },
+  });
+</script>
 {% endblock content %}

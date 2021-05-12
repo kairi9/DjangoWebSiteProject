@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .forms import DateScheduleForm
+from .forms import DateScheduleForm,GetCodeAsFileForm
 from datetime import date
 
 
@@ -182,6 +182,23 @@ def del_sche_view(request,id):
 class Note(LoginRequiredMixin,TemplateView):
     #テンプレートのパス
     template_name = 'myNote/note.html'
+    redirect_field_name = 'redirect_to'
+
+    def get(self, request, *args, **kwargs):
+        data = MyCodes.objects.filter(username=request.user).order_by('date')[:10]
+        form = GetCodeAsFileForm()
+        context = {
+            'datas':data,
+            'form':form
+        }
+        return render(request,'myNote/note.html',context)
+    
+    def post(self,request, *args, **kwargs):
+        return redirect('myNote:note')
+
+#task
+class Task(LoginRequiredMixin,TemplateView):
+    template_name = 'myNote/task.html'
     redirect_field_name = 'redirect_to'
 
     def get(self, request, *args, **kwargs):
