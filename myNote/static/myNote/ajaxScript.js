@@ -2,17 +2,16 @@ var today = new Date();
 var thisDay = today.getDate();
 var thisYear = today.getFullYear();
 var thisMonth = today.getMonth()+1;
-const base_url = "http://127.0.0.1:8000/";
-const url1 = "ajax_view/";
-const url2 = "schedule_view/";
-const url3 = "sche_change/";
-const url4 =  "sche_del/";
+const url1 = "/ajax_view/";
+const url2 = "/schedule_view/";
+const url3 = "/sche_change/";
+const url4 =  "/sche_del/";
 
 //ページ読み込み時の処理
 $(function(){
     //カレンダー用Ajax通信
     $.ajax({
-        url: base_url+url1,
+        url: url1,
         method: "GET",
         // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
         dataType: 'html',
@@ -63,7 +62,7 @@ $(function(){
 
     //予定追加用Ajax通信
     $.ajax({
-        url: base_url+url2,
+        url: url2,
         method: "GET",
         // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
         dataType: 'html',
@@ -86,7 +85,6 @@ $(function(){
 
     $('#alert_form').submit(function () { 
         if(window.confirm('本当に実行しますか？')){
-            window.alert('変更を受け付けました。')
             return true;
         }
         else{
@@ -95,11 +93,8 @@ $(function(){
         }
     });
 
-    if(location.pathname === '/'){
-        $('.todo').addClass('current_page');
-    }else if(location.pathname === '/note/'){
-        $('.mycode').addClass('current_page');
-    }
+    let height = 90/$('.month tbody tr').length
+    $('.month tbody tr td').height(height)
 })
 
 //前の月のカレンダー取得
@@ -111,7 +106,7 @@ function preClick(){
         thisMonth -= 1;
     }
     $.ajax({
-        url: base_url+url1,
+        url: url1,
         method: "GET",
         // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
         dataType: 'html',
@@ -169,7 +164,7 @@ function nextClick(){
         thisMonth += 1;
     }
     $.ajax({
-        url: base_url+url1,
+        url: url1,
         method: "GET",
         // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
         dataType: 'html',
@@ -223,7 +218,7 @@ function onclickTd(obj,year,month,date){
     $('td').removeClass('active');
     $(obj).addClass('active');
     $.ajax({
-        url: base_url+url2,
+        url: url2,
         method: "GET",
         // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
         dataType: 'html',
@@ -271,7 +266,7 @@ function sche_click(obj,num) {
 function sche_change(id) {
     let my_id = id;
     $.ajax({
-        url: base_url+url3,
+        url: url3,
         method: "GET",
         // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
         dataType: 'html',
@@ -299,7 +294,7 @@ function sche_change(id) {
 function sche_del(id) {
     let my_id = id;
     $.ajax({
-        url: base_url+url4,
+        url: url4,
         method: "GET",
         // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
         dataType: 'html',

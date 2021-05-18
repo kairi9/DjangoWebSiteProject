@@ -14,6 +14,9 @@ $titleColor:#e64c65;
 $calendarColor:#3468af;
 $borderColor:#1f253d;
 $hover_color:#50597b;
+$alert_yellow:#EED202;
+$alert_red:#B33A3A;
+$alert_blue:#2196F3;
 
 .scdColor{
     color: $secondIndexColor;
@@ -348,7 +351,6 @@ body{
         tbody{
             tr{
                 td{
-                    height: 18%;
                     width: 14.2%;
                     border-right: 5px solid $borderColor;
                     border-bottom: 5px solid $borderColor;
@@ -482,7 +484,6 @@ body{
             padding: 16px 0 0 16px;
             margin-bottom: 10px;
             border-bottom: 2px solid $hover_color;
-            cursor: pointer;
         }
         .menu_item{
             width: 150px;
@@ -503,6 +504,7 @@ body{
                 left: 50%;
                 transform: translate(-50%,-50%);
                 font-size: medium;
+                cursor: pointer;
             }
         }
     }
@@ -512,48 +514,54 @@ body{
     height: 100%;
     #editor_header{
         width: 100%;
-        height: 5%;
+        height: 8%;
         #code_title{
-            width: 50%;
+            width: 70%;
             height: 100%;
             float: left;
-            position: relative;
-            h2{
-                position: absolute;
-                top: 50%;
-                left: 10%;
-                transform: translateY(-50%);
-                text-align: left;
-                
-            }
-        }
-        #code_date{
-            width: 20%;
-            height: 100%;
-            float: left;
-            position: relative;
-            h4{
-                font-weight: 400;
-                position: absolute;
-                top: 50%;
-                left: 0;
-                transform: translateY(-50%);
-                text-align: left;
-                span{
-                    font-weight: 600
+            .user-box{
+                height: 100%;
+                width: 50%;
+                float: left;
+                position: relative;
+                padding: 5px;
+                input,select{
+                    width: 100%;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    color: #fff;
+                    border: none;
+                    border-bottom: 1px solid #fff;
+                    outline: none;
+                    background: #2b3355;
+                    border-radius: 10px;
+                    option{
+                        background-color: $backColor;
+                    }
+                }
+    
+                label{
+                    position: absolute;
+                    top: -30px;
+                    left: 0;
+                    padding: 10px 0;
+                    color: #03e9f4;
+                    font-size: 12px;
+                    pointer-events: none;
+                    transition: .5s;
                 }
             }
         }
-        .edit{
+        .save{
             @include btn(#11a8ab,#0f9294);
-            border-radius: 16px;
+            border-radius: 10px;
             height: 100%;
             width: 15%;
             float: left;
         }
         .delete{
             @include btn($titleColor,#b43c50);
-            border-radius: 16px;
+            border-radius: 10px;
             height: 100%;
             width: 15%;
             float: left;
@@ -561,10 +569,296 @@ body{
     }
     #editor_body{
         width: 100%;
-        height: 95%;
+        height: 92%;
         text-align: left;
         .vue-codemirror{
             height: 100%;
+        }
+    }
+}
+
+.code_discription{
+    height: 60%;
+    h2{
+        background-color: $titleColor;
+        padding: 14px 0;
+        border-radius: 10px 10px 0 0;
+        font-weight: 400;
+        font-size: large;
+    }
+    textarea{
+        width: 90%;
+        padding: 10px 20px;
+        font-size: 14px;
+        color: #fff;
+        background: #2b3355;
+        border-radius: 10px;
+        height: 85%;
+    }
+}
+#archive{
+    height: 40%;
+    h2{
+        background-color: $titleColor;
+        padding: 14px 0;
+        border-radius: 10px 10px 0 0;
+        font-weight: 400;
+        font-size: large;
+    }
+    .archive_list{
+        ul{
+            li{
+                width: 100%;
+                height: 60px;
+                border-bottom: 1px solid $borderColor;
+                &:hover{
+                    border-left: none;
+                    border-top: none;
+                }
+                a{
+                    line-height: 60px;
+                    display: block;
+                    -webkit-transition: background .2s;
+                    transition: background .2s;
+                    color: $indexColor;
+                    text-decoration: none;
+                    &:hover{
+                        background: $hover_color;
+                        border-top: 1px solid #1f253d;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@mixin done_btn($color) {
+    display: inline-block;
+    position: relative;
+    padding: 10px 20px;
+    color: $color;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px;
+    background:transparent;
+    border: none;
+    outline: none;
+    &:hover{
+        background: $color;
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 5px $color,0 0 25px $color,0 0 50px $color,0 0 100px $color;
+    }
+    span{
+        position: absolute;
+        display: block;
+    }
+
+    span:nth-child(1){
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, $color);
+        animation: btn-anim1 1s linear infinite;
+    }
+    @keyframes btn-anim1 {
+        0% {
+            left: -100%;
+        }
+        50%,100% {
+            left: 100%;
+        }
+    }
+
+    span:nth-child(2) {
+        top: -100%;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(180deg, transparent, $color);
+        animation: btn-anim2 1s linear infinite;
+        animation-delay: .25s
+    }
+    @keyframes btn-anim2 {
+        0% {
+            top: -100%;
+        }
+        50%,100% {
+            top: 100%;
+        }
+    }
+        
+    span:nth-child(3) {
+        bottom: 0;
+        right: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(270deg, transparent, $color);
+        animation: btn-anim3 1s linear infinite;
+        animation-delay: .5s
+    }
+    @keyframes btn-anim3 {
+        0% {
+            right: -100%;
+        }
+        50%,100% {
+            right: 100%;
+        }
+    }
+
+    span:nth-child(4) {
+        bottom: -100%;
+        left: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(360deg, transparent, $color);
+        animation: btn-anim4 1s linear infinite;
+        animation-delay: .75s
+    }
+    @keyframes btn-anim4 {
+        0% {
+            bottom: -100%;
+        }
+        50%,100% {
+            bottom: 100%;
+        }
+    }
+}
+
+#tasks{
+    width: 100%;
+    height: 100%;
+    #tasks_head_bar{
+        padding: 10px 0;
+        border-radius: 10px 10px 0 0;
+        background: linear-gradient(to right, $alert_red, $alert_blue);
+    }
+    .todos{
+        float: left;
+        padding: 10px;
+        .todo_task{
+            display: none;
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            background-color: #2b3355;
+            h2{
+                font-size: 100%;
+                padding: 5px 0;
+                border-radius: 10px 10px 0 0;
+            }
+            h3{
+                font-size: 30%;
+                padding: 5px 0;
+            }
+            table{
+                width: 100%;
+                font-size: 80%;
+                td{
+                    text-align: left;
+                }
+            }
+        }
+
+        .future{
+            h2{
+                background-color: rgba(33,150,243,0.9);
+            }
+            .mention{
+                color: $alert_blue;
+            }
+            a{
+                @include done_btn($alert_blue);
+            }
+        }
+
+        .expired{
+            h2{
+                background-color: rgba(179,58,58,0.9);
+            }
+            .mention{
+                color: $alert_red;
+            }
+            a{
+                @include done_btn($alert_red);
+            }
+        }
+
+        .today{
+            h2{
+                background-color: rgba(238,210,2,0.9);
+            }
+            .mention{
+                color: $alert_yellow;
+            }
+            a{
+                @include done_btn($alert_yellow);
+            }
+        }
+    }
+}
+
+.content_head{
+    position: relative;
+    height: 8%;
+    background-color: $titleColor;
+    border-radius: 10px 10px 0 0;
+    h2{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
+.task_form {
+    width: 100%;
+    height: 92%;
+    padding: 40px;
+    background-color: #2b3355;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 0 0 10px 10px;
+    form{
+        .user-box{
+            position: relative;
+            input,textarea{
+                width: 100%;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #fff;
+                margin-bottom: 30px;
+                border: none;
+                border-bottom: 1px solid #fff;
+                outline: none;
+                background: transparent;
+                &:focus ~ label,&:valid ~ label{
+                    top: -20px;
+                    left: 0;
+                    color: #03e9f4;
+                    font-size: 12px;
+                }
+            }
+
+            label{
+                position: absolute;
+                top:0;
+                left: 0;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #ffffff;
+                pointer-events: none;
+                transition: .5s;
+            }
+        }
+        button{
+            @include done_btn(#03e9f4);
         }
     }
 }

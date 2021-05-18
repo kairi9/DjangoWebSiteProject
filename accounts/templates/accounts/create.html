@@ -10,16 +10,30 @@
     <h2>Sign Up</h2>
     <form action="{% url 'accounts:create' %}" method="post">
         {% csrf_token %}
-        <label>ユーザーID</label>
-        {{form.username}}
-        <label>フルネーム</label>
-        {{form.full_name}}
-        <label>パスワード</label>
-        {{ form.password1 }}
-        <label>パスワード(確認)</label>
-        {{ form.password2 }}
-        <input type="submit" value="アカウント作成">
+        <div class="user-box">
+            {{form.username}}
+            <label for="id_username">Username</label>
+        </div>
+        <div class="user-box">
+            {{form.full_name}}
+            <label for="id_full_name">Fullname</label>
+        </div>
+        <div class="user-box">
+            {{ form.password1 }}
+            <label>Password</label>
+        </div>
+        <div class="user-box">
+            {{ form.password2 }}
+            <label>Password(again)</label>
+        </div>
+        <button type="submit">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Sign Up
+        </button>
     </form>
-    <div class="login_account"><a href="{% url 'accounts:login' %}">アカウントをお持ちですか？</a></div>
+    <div class="login_account"><a href="{% url 'accounts:login' %}">Do you hava an account?</a></div>
 </div>
 {% endblock content %}

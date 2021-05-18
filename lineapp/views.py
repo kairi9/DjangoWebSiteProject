@@ -8,6 +8,7 @@ from django.contrib.auth import views as auth_views
 from accounts.forms import MyLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .linebot import push_message
+from django.views.decorators.csrf import csrf_exempt
 
 
 #LINEアカウントとの連携用
@@ -21,6 +22,7 @@ class LineLoginView(LoginRequiredMixin,View):
 
 #LINEBot用
 class LineView(View):
+    @csrf_exempt
     def post(self,request):
         req = json.loads(request.body.decode('utf-8'))
         events = req['events']

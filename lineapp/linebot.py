@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from .models import LineAccount
 from datetime import date
 
-BASE_URL = "https://f0ec427752d7.ngrok.io/"
+BASE_URL = "http://127.0.0.1:8000/"
 LINE_URL = "lineapp/login/"
 LOGO_URL = "static/myNote/mynote_logo.jpg"
 line_bot_api = LineBotApi('iAgGuMTLq1lnXg1jpTdbEIG/yKZV9bkCNEpWtYRjI0Ix+DVAcMmq/0+D+km53QPkB168PW1k5a/hhFILx2gOwHEvVsh7fxHdeg+VXvGpjaDSpHrSqvsqN5tWB+oQMbkYl0H8Uv5xsD9/w2OlxW7x+QdB04t89/1O/w1cDnyilFU=')

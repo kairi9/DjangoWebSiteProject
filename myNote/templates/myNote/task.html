@@ -2,13 +2,90 @@
 {% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'myNote/style.css' %}">
+<script src="{% static 'myNote/task.js' %}"></script>
+<script type="text/javascript" src="{% static 'myNote/node_modules/vue/dist/vue.min.js' %}"></script>
 {% endblock head %}
 
 {% block content %}
 <div id="main">
-  <div class="content"></div>
+  <div class="content">
+    <div id="tasks">
+      <div id="tasks_head_bar">
+        <h2>高い  &lt; &lt; &lt; &lt; &lt;   緊急度   &gt; &gt; &gt; &gt; &gt;  低い</h2>
+      </div>
+      {% for todo in taskes %}
+        <div class="todos">
+        {% if todo.expired %}
+          <div class="todo_task expired">
+            <h2>{{todo.title}}</h2>
+            <h3 class="mention">※期限を過ぎています！！</h3>
+            <table>
+              <tr><th>期限</th><td>{{todo.date|date:"n/j" }} {{todo.end_time|date:"H:i"}}まで</td></tr>
+              <tr><th>詳細</th><td>{{todo.discription}}</td></tr>
+            </table>
+        {% elif todo.today%}
+          <div class="todo_task today">
+            <h2>{{todo.title}}</h2>
+            <h3 class='mention'>※今日が期限です！</h3>
+            <table>
+              <tr><th>期限</th><td>今日の{{todo.end_time|date:"H:i"}}まで</td></tr>
+              <tr><th>詳細</th><td>{{todo.discription}}</td></tr>
+            </table>
+        {% else %}
+          <div class="todo_task future">
+            <h2>{{todo.title}}</h2>
+            <h3 class='mention'>※期限まで、あと{{todo.return_deadline}}日</h3>
+            <table>
+              <tr><th>期限</th><td>{{todo.date|date:"n/j" }} {{todo.end_time|date:"H:i"}}まで</td></tr>
+              <tr><th>詳細</th><td>{{todo.discription}}</td></tr>
+            </table>
+        {% endif %}
+            <a href="{{todo.id}}/">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              DONE!
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 <div id="details">
- <div class="content"></div>
+ <div class="content">
+  <div class="content_head">
+    <h2>Task追加</h2>
+  </div>
+  <div class="task_form">
+    <form action="{% url 'myNote:task' %}" method="post">
+      {% csrf_token %}
+      <div class="user-box">
+          {{form.title}}
+          <label for="id_title">Task Name</label>
+      </div>
+      <div class="user-box">
+          {{form.date}}
+          <label for="id_date">Deadline Date</label>
+      </div>
+      <div class="user-box">
+          {{form.end_time}}
+          <label for="id_end_time">Deadline Time</label>
+      </div>
+      <div class="user-box">
+          {{form.discription}}
+          <label for="id_discription">Discription</label>
+      </div>
+      <button type="submit">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        追加
+      </button>
+    </form>
+  </div>
+ </div>
 </div>
 {% endblock content %}

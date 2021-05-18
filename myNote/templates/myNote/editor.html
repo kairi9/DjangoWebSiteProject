@@ -1,0 +1,84 @@
+{% extends 'myNote/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'myNote/style.css' %}">
+<link rel="stylesheet" href="{% static 'myNote/node_modules/codemirror/lib/codemirror.css' %}">
+<script src="{% static 'myNote/note.js' %}"></script>
+<script type="text/javascript" src="{% static 'myNote/node_modules/codemirror/lib/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'myNote/node_modules/vue/dist/vue.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'myNote/node_modules/vue-codemirror/dist/vue-codemirror.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'myNote/node_modules/codemirror/mode/javascript/javascript.js' %}"></script>
+<link rel="stylesheet" href="{% static 'myNote/node_modules/codemirror/theme/ambiance.css' %}">
+{% endblock head %}
+
+{% block content %}
+<form action="{% url 'myNote:codes' %}" method="post" id="code_form">
+{% csrf_token %}
+</form>
+<div id="main">
+  <div class="content">
+    <div id="editor">
+      <div id="editor_header">
+        <div id="code_title">
+          <div class="user-box">
+            <label for="id_title">タイトル</label>
+            {{form.title}}
+          </div>
+          <div class="user-box">
+            <label for="id_extension">言語</label>
+            {{form.extension}}
+          </div>
+        </div>
+        <button type="submit" class="save" form="code_form">Save</button>
+        <button class="delete">Delete</button>
+      </div>
+      <div id="editor_body">
+        <template>
+          <codemirror v-model="code" :options="cmOptions"></codemirror>
+        </template>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="details">
+  <div class="content">
+    <div class="code_discription">
+      <h2>コードの説明</h2>
+      {{form.discription}}
+    </div>
+    <div id="archive">
+        <h2>アーカイブ</h2>
+        <div class="archive_list">
+            <ul>
+            {% for data in datas %}
+                <li><a href="{% url 'myNote:show_codes' data.id %}">{{data.title}}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+  </div>
+</div>
+<script>
+  Vue.use(window.VueCodemirror)
+  new Vue({
+    el: '#editor_body',
+    data: {
+      code: {{code}},
+      cmOptions: {
+        tabSize: 4,
+        styleActiveLine: true,
+        lineNumbers: true,
+        line: true,
+        mode: 'text/javascript',
+        lineWrapping: true,
+        theme: 'ambiance',
+        autocorrect: true,
+      }
+    },
+    methods: {
+      
+    }
+  });
+</script>
+{% endblock content %}

@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>myNote</title>
   <script src = "https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src = "{% static 'myNote/ajaxScript.js' %}"></script>
   {% block head %}{% endblock head %}
 </head>
 <body>
@@ -23,7 +22,8 @@
             <li class="todo"><a href="{% url 'myNote:myPage'%}">Schedule</a></li>
             <li class="task"><a href="{% url 'myNote:task'%}">Task</a></li>
             <li class="mycode"><a href="{% url 'myNote:note'%}">MyCode</a></li>
-            <li><a href="/">追加予定</a></li>
+            <li class="new_code no_disp"><a href="{% url 'myNote:codes'%}">NewCode</a></li>
+            <li class="file_upload no_disp"><a href="{% url 'myNote:upload_file'%}">FileUpload</a></li>
           </ul>
           <p><a href="{% url 'accounts:logout' %}" class="scdColor">ログアウト</a></p>
         </div>
@@ -32,5 +32,21 @@
     {% block content %}
     {% endblock content %}
   </div>
+  <script>
+  var pattern = /note\/codes\/\d\//
+    $(function(){
+      if(location.pathname === '/'){
+        $('.todo').addClass('current_page');
+      }else if(location.pathname === '/note/'){
+          $('.mycode').addClass('current_page');
+      }else if(location.pathname === '/task/'){
+          $('.task').addClass('current_page');
+      }else if(pattern.test(location.pathname) || location.pathname === '/note/codes/'){
+          $('.mycode').addClass('current_page');
+          $('.new_code').removeClass('no_disp');
+          $('.new_code').addClass('current_page');
+      }
+    })
+  </script>
 </body>
 </html>

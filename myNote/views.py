@@ -1,12 +1,12 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import MyCodes, CalendarToDo
+from .models import MyCodes, CalendarToDo,Task,ProgrammingLanguage
 from .my_calendar import MyCalendar,get_todays_datail
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .forms import DateScheduleForm,GetCodeAsFileForm
+from .forms import DateScheduleForm,GetCodeAsFileForm,TaskForm,CodeForm
 from datetime import date
 
 
@@ -15,17 +15,13 @@ class MyPage(LoginRequiredMixin,TemplateView):
     #テンプレートのパス
     template_name = 'myNote/index.html'
     redirect_field_name = 'redirect_to'
-
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         username = self.request.user.get_username
-        context = self.get_context_data(**kwargs)
         context['username']=username
-        form = DateScheduleForm(request.GET or None, initial={'username':self.request.user})
+        form = DateScheduleForm(initial={'username':self.request.user})
         context['form'] = form
-        return self.render_to_response(context)
-    
-    def post(self,request, *args, **kwargs):
-        return redirect('myNote:myPage')
+        return context
 
 
 
@@ -89,8 +85,9 @@ class DateScheduleAjax(LoginRequiredMixin,View):
         a = CalendarToDo()
         a.username = request.user
         f = DateScheduleForm(request.POST,instance=a)
-        f.save()
-        return redirect('/')
+        if f.is_valid():
+            f.save()
+        return redirect('myNote:myPage')
 
 #予定変更確認用
 class ChangeScheduleAjax(LoginRequiredMixin,View):
@@ -196,14 +193,80 @@ class Note(LoginRequiredMixin,TemplateView):
     def post(self,request, *args, **kwargs):
         return redirect('myNote:note')
 
-#task
-class Task(LoginRequiredMixin,TemplateView):
-    template_name = 'myNote/task.html'
+class Editor(LoginRequiredMixin,TemplateView):
+    #テンプレートのパス
+    template_name = 'myNote/editor.html'
     redirect_field_name = 'redirect_to'
 
-    def get(self, request, *args, **kwargs):
-        context = {}
-        return render(request,'myNote/note.html',context)
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.kwargs.get('id') is not None:
+            obj = MyCodes.objects.get(username=self.request.user,id=self.kwargs.get('id'))
+            form = CodeForm(initial={
+                'title':obj.title,
+                'extension':obj.extension,
+                'discription':obj.discription,
+            })
+            context['code'] = obj.code
+        else:
+            form = CodeForm()
+            context['code'] = "//コード"
+        context['form'] = form
+        data = MyCodes.objects.filter(username=self.request.user).order_by('date')[:5]
+        context['datas'] = data
+        return context
+
     def post(self,request, *args, **kwargs):
+        obj = MyCodes(username=request.user,code=request.POST['codemirror'])
+        form = CodeForm(request.POST,instance=obj)
+        if form.is_valid():
+            form.save()
         return redirect('myNote:note')
+
+#コードファイルアップロード用
+@login_required(redirect_field_name='myNote:myPage')
+def file_upload_view(request):
+    if request.method == 'POST':
+        form = GetCodeAsFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file_obj = form.cleaned_data['code_file']
+            discription = form.cleaned_data['discription']
+            with file_obj.open(mode='r') as f:
+                code = f.read().decode('utf-8')
+            extension = file_obj.name.split('.')[-1]
+            language_obj = ProgrammingLanguage.objects.get(extension=extension)
+            obj = MyCodes(username=request.user,title=file_obj.name,code=code,extension=language_obj,discription=discription)
+            obj.save()
+            return redirect('myNote:note')
+        else:
+            return HttpResponse('処理失敗')
+
+
+
+#task
+class TaskView(LoginRequiredMixin,TemplateView):
+    template_name = 'myNote/task.html'
+    redirect_field_name = 'redirect_to'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        taskes = Task.objects.filter(username=self.request.user,done=False).order_by('date')[:16]
+        form = TaskForm(initial={'username':self.request.user})
+        context['taskes']=taskes
+        context['form']=form
+        return context
+    
+    def post(self,request):
+        obj = Task()
+        obj.username = request.user
+        form = TaskForm(request.POST,instance=obj)
+        if form.is_valid():
+            form.save()
+        return redirect('myNote:task')
+
+@login_required(redirect_field_name='myNote:task')
+def task_done(request,id):
+    if request.method == 'GET':
+        obj = Task.objects.get(username=request.user,id=id)
+        obj.done = True
+        obj.save()
+        return redirect('myNote:task')
