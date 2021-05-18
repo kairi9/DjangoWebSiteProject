@@ -27,7 +27,8 @@ class LineView(View):
         req = json.loads(request.body.decode('utf-8'))
         events = req['events']
         for event in events:
-            line_bot = LineBot(event)
+            url="{0}://{1}/".format(request.scheme, request.get_host())
+            line_bot = LineBot(event,url)
             if event["type"] == "message":
                 message = event["message"]["text"]
                 if message == "今日の予定！":

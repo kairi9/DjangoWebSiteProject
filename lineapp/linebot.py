@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate
 from .models import LineAccount
 from datetime import date
 
-BASE_URL = "http://127.0.0.1:8000/"
 LINE_URL = "lineapp/login/"
 LOGO_URL = "static/myNote/mynote_logo.jpg"
 line_bot_api = LineBotApi('iAgGuMTLq1lnXg1jpTdbEIG/yKZV9bkCNEpWtYRjI0Ix+DVAcMmq/0+D+km53QPkB168PW1k5a/hhFILx2gOwHEvVsh7fxHdeg+VXvGpjaDSpHrSqvsqN5tWB+oQMbkYl0H8Uv5xsD9/w2OlxW7x+QdB04t89/1O/w1cDnyilFU=')
@@ -33,13 +32,14 @@ def get_todays_schedule(user,date):
 
 #LINE Botクラス
 class LineBot():
-    def __init__(self,event):
+    def __init__(self,event,url):
         self.msg_type = event["type"]
         self.replyToken = event["replyToken"] if self.msg_type == "follow" or self.msg_type == "message" or self.msg_type == "postback" else None
         self.mode = event["mode"]
         self.timestamp = event["timestamp"]
         self.userId = event["source"]["userId"]
         self.postback = event["postback"] if self.msg_type == "postback" else None
+        self.url = url
 
     #メッセージイベント用
     def message_event(self,text):
@@ -51,7 +51,7 @@ class LineBot():
     #フォローイベント用
     def follow_event(self):
         text = "フォローありがとうございます！\nサービスを利用するためには、\nURLからログインをお願いします！\n"
-        text += BASE_URL+LINE_URL+self.userId+"/"
+        text += self.url+LINE_URL+self.userId+"/"
         try:
             line_bot_api.reply_message(self.replyToken,TextSendMessage(text=text))
         except LineBotApiError as e:
@@ -84,7 +84,7 @@ class LineBot():
                 text = "{}\n{}~{}\n{}".format(obj["title"],start_time,end_time,obj["discription"])
                 columns.append(
                     CarouselColumn(
-                        thumbnail_image_url=BASE_URL+LOGO_URL,
+                        thumbnail_image_url=self.url+'static/myNote/'+LOGO_URL,
                         title=str(obj["date"]),
                         text=text,
                         actions=[
@@ -143,7 +143,7 @@ class LineBot():
             obj = LineAccount.objects.get(line_id=self.source["userId"])
         except LineAccount.DoesNotExist as e:
             text = "このサービスを使用するには\nURLからログインをお願いします！"
-            text += BASE_URL+LINE_URL+self.userId+"/"
+            text += self.url+LINE_URL+self.userId+"/"
             text += "\nアカウントをお持ちでない場合は、\nアカウントを作成した後にもう一度このURLをクリックしてください。"
             try:
                 line_bot_api.reply_message(self.replyToken,TextSendMessage(text=text))
