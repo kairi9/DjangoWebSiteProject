@@ -1,0 +1,17 @@
+{% extends 'myNote/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'myNote/style.css' %}">
+<link rel="stylesheet" href="{% static 'myNote/line.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div id="main">
+  <div class="content">
+    <div id="line">
+        <div class="line_title"><h1>LINEで友達追加！</h1></div>
+        <div class="line_qr"><img src="{% static 'myNote/line_account_qr.png' %}" alt="line_qr"></div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -18,7 +18,7 @@ class DateScheduleForm(forms.ModelForm):
 #note
 class GetCodeAsFileForm(forms.Form):
     code_file = forms.FileField()
-    discription = forms.CharField(widget=forms.Textarea(attrs={'rows':6, 'cols':30}))
+    discription = forms.CharField(widget=forms.Textarea(attrs={'rows':8, 'cols':30}))
 
 class CodeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -26,11 +26,18 @@ class CodeForm(forms.ModelForm):
         self.fields['title'].widget.attrs["form"] = "code_form"
         self.fields['extension'].widget.attrs["form"] = "code_form"
         self.fields['discription'].widget = forms.Textarea(attrs={'rows':1, 'cols':15, 'form':'code_form'})
-    
+        self.fields['code'].widget = forms.Textarea(attrs={'rows':1, 'cols':15, 'form':'code_form'})
     class Meta:
         model = MyCodes
-        fields = ['title','extension','discription']
+        fields = ['title','code','extension','discription']
 
+class FindCodeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['extension'].widget.attrs["form"] = "find_form"
+    class Meta:
+        model = MyCodes
+        fields = ['extension']
 
 #task
 class TaskForm(forms.ModelForm):

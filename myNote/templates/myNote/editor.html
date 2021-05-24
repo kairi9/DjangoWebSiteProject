@@ -1,19 +1,23 @@
 {% extends 'myNote/base.html' %}
 {% load static %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'myNote/style.css' %}">
-<link rel="stylesheet" href="{% static 'myNote/node_modules/codemirror/lib/codemirror.css' %}">
 <script src="{% static 'myNote/note.js' %}"></script>
-<script type="text/javascript" src="{% static 'myNote/node_modules/codemirror/lib/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'myNote/node_modules/vue/dist/vue.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'myNote/node_modules/vue-codemirror/dist/vue-codemirror.js' %}"></script>
 
-<script type="text/javascript" src="{% static 'myNote/node_modules/codemirror/mode/javascript/javascript.js' %}"></script>
-<link rel="stylesheet" href="{% static 'myNote/node_modules/codemirror/theme/ambiance.css' %}">
+<link rel="stylesheet" href="{% static 'myNote/codemirror-5.61.1/lib/codemirror.css' %}">
+<link rel="stylesheet" href="{% static 'myNote/codemirror-5.61.1/theme/ambiance.css' %}">
+<script src="{% static 'myNote/codemirror-5.61.1/lib/codemirror.js' %}"></script>
+<script src="{% static 'myNote/codemirror-5.61.1/mode/javascript/javascript.js' %}"></script>
 {% endblock head %}
 
 {% block content %}
+{% if has_id %}
+<form action="{% url 'myNote:show_codes' id %}" method="post" id="code_form">
+{% else %}
 <form action="{% url 'myNote:codes' %}" method="post" id="code_form">
+{% endif %}
 {% csrf_token %}
 </form>
 <div id="main">
@@ -34,9 +38,7 @@
         <button class="delete">Delete</button>
       </div>
       <div id="editor_body">
-        <template>
-          <codemirror v-model="code" :options="cmOptions"></codemirror>
-        </template>
+        {{form.code}}
       </div>
     </div>
   </div>
@@ -52,33 +54,33 @@
         <div class="archive_list">
             <ul>
             {% for data in datas %}
-                <li><a href="{% url 'myNote:show_codes' data.id %}">{{data.title}}</a></li>
+                <li><a href="{% url 'myNote:show_codes' data.id %}">{{data.title}}  <span>{{data.date|date:"Y/m/d"}}</span></a></li>
             {% endfor %}
             </ul>
         </div>
     </div>
   </div>
 </div>
-<script>
-  Vue.use(window.VueCodemirror)
-  new Vue({
-    el: '#editor_body',
-    data: {
-      code: {{code}},
-      cmOptions: {
-        tabSize: 4,
-        styleActiveLine: true,
-        lineNumbers: true,
-        line: true,
-        mode: 'text/javascript',
-        lineWrapping: true,
-        theme: 'ambiance',
-        autocorrect: true,
-      }
-    },
-    methods: {
-      
-    }
+<script type="text/javascript">
+  var editor = CodeMirror.fromTextArea(document.getElementById("id_code"),
+  {
+    value:'',
+    mode:'javascript',
+    theme:'ambiance',
+    lineNumbers: true,　 // 行番号を表示する
+    lineWrapping: true,
+    autofocus:true,
+    autocorrect:true,
+    spellcheck:true
   });
+  $('.save').on('click', function() {
+    editor.save();
+  });
+  $('.delete').on('click',function(){
+    var result = window.confirm('本当に削除しますか？');
+    if( result ) {
+      window.location.href = 'delete/';
+    }
+  })
 </script>
 {% endblock content %}

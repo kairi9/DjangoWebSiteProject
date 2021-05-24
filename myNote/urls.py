@@ -19,5 +19,9 @@ urlpatterns = [
     path('note/upload_file/',views.file_upload_view,name='upload_file'),
     path('note/codes/',views.Editor.as_view(),name='codes'),
     path('note/codes/<int:id>/',views.Editor.as_view(),name='show_codes'),
-    #path('note/search/',views.Note.as_view(),name='codes'),
+    path('note/codes/<int:id>/delete/',views.del_code,name='del_codes'),
+    path('note/find_code/',views.FindCodeView.as_view(),name='find_codes'),
+    path('note/find_code/<int:id>/',views.FoundCodeView.as_view(),name='found_code'),
+    #line
+    path('line_qr/',views.LineAccountAddView.as_view(),name='line'),
 ]

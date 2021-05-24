@@ -17,7 +17,7 @@
       </div>
       <div id="my_codes" class="menu_content">
         <h2>コードを見る</h2>
-        <div class="menu_item"><h3>言語<br>から探す</h3></div>
+        <div class="menu_item" v-on:click="showFindCode"><h3>言語<br>から探す</h3></div>
         <div class="menu_item"><h3>日付<br>から検索</h3></div>
       </div>
     </div>
@@ -25,11 +25,16 @@
       <h2>ファイルをアップロード</h2>
       <form action="{% url 'myNote:upload_file' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <table>
-          <tr><td colspan="2">{{form.code_file}}</td></tr>
-          <tr><th>ファイルの説明：</th><td>{{form.discription}}</td></tr>
-          <tr><td colspan="2"><input type="submit" value="追加"></td></tr>
-        </table>
+        <p>{{form.code_file}}</p>
+        <label for="id_discription">コード詳細：</label>
+        <p>{{form.discription}}</p>
+        <button type="submit">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          追加
+        </button>
       </form>
     </div>
   </div>
@@ -41,7 +46,7 @@
       <div class="archive_list">
         <ul>
           {% for data in datas %}
-            <li><a href="{% url 'myNote:show_codes' data.id %}">{{data.title}}</a></li>
+            <li><a href="{% url 'myNote:show_codes' data.id %}">{{data.title}}  <span>{{data.date|date:"Y/m/d"}}</span></a></li>
           {% endfor %}
         </ul>
       </div>
@@ -64,6 +69,9 @@
         $('#file_upload').removeClass('no_disp')
         $('.file_upload').removeClass('no_disp');
         $('.file_upload').addClass('current_page');
+      },
+      showFindCode:function(){
+        window.location.href = "{% url 'myNote:find_codes' %}";
       }
     }
   });

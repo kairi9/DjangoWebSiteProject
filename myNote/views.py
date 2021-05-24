@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .forms import DateScheduleForm,GetCodeAsFileForm,TaskForm,CodeForm
+from .forms import DateScheduleForm,GetCodeAsFileForm,TaskForm,CodeForm,FindCodeForm
 from datetime import date
 
 
@@ -205,24 +205,37 @@ class Editor(LoginRequiredMixin,TemplateView):
             form = CodeForm(initial={
                 'title':obj.title,
                 'extension':obj.extension,
+                'code':obj.code,
                 'discription':obj.discription,
             })
-            context['code'] = obj.code
+            context['has_id'] = True
+            context['id'] = obj.id
         else:
             form = CodeForm()
-            context['code'] = "//コード"
+            context['has_id'] = False
         context['form'] = form
-        data = MyCodes.objects.filter(username=self.request.user).order_by('date')[:5]
+        data = MyCodes.objects.filter(username=self.request.user).order_by('date')[:4]
         context['datas'] = data
         return context
 
     def post(self,request, *args, **kwargs):
-        obj = MyCodes(username=request.user,code=request.POST['codemirror'])
+        if self.kwargs.get('id') is not None:
+            obj = MyCodes.objects.get(username=request.user,id=kwargs.get('id'))
+            print(obj.id)
+        else:
+            obj = MyCodes(username=request.user)
         form = CodeForm(request.POST,instance=obj)
         if form.is_valid():
             form.save()
         return redirect('myNote:note')
 
+#コード削除用
+@login_required(redirect_field_name='myNote:myPage')
+def del_code(request,id):
+    if request.method == 'GET':
+        obj = MyCodes.objects.get(username=request.user,id=id)
+        obj.delete()
+        return HttpResponse('<h1>削除しました！</h1><a href="/note/">作業を続ける</a>')
 #コードファイルアップロード用
 @login_required(redirect_field_name='myNote:myPage')
 def file_upload_view(request):
@@ -232,16 +245,42 @@ def file_upload_view(request):
             file_obj = form.cleaned_data['code_file']
             discription = form.cleaned_data['discription']
             with file_obj.open(mode='r') as f:
-                code = f.read().decode('utf-8')
+                try:
+                    code = f.read().decode('utf-8')
+                except UnicodeDecodeError:
+                    return HttpResponse('<h1>処理失敗</h1><h2>このファイルはアップロード出来ません。</h2><a href="/note/">作業を続ける</a>')
             extension = file_obj.name.split('.')[-1]
-            language_obj = ProgrammingLanguage.objects.get(extension=extension)
+            try:
+                language_obj = ProgrammingLanguage.objects.get(extension=extension)
+            except ProgrammingLanguage.DoesNotExist:
+                language_obj = ProgrammingLanguage(language='text',extension='txt',path_to_file='')
+                language_obj.save()
             obj = MyCodes(username=request.user,title=file_obj.name,code=code,extension=language_obj,discription=discription)
             obj.save()
             return redirect('myNote:note')
         else:
             return HttpResponse('処理失敗')
 
+class FindCodeView(LoginRequiredMixin,TemplateView):
+    template_name = 'myNote/find_code.html'
+    redirect_field_name = 'redirect_to'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = FindCodeForm()
+        context['form'] = form
+        data = MyCodes.objects.filter(username=self.request.user).order_by('date')[:10]
+        context['datas'] = data
+        return context
 
+class FoundCodeView(LoginRequiredMixin,View):
+    def get(self,request,id):
+        items = MyCodes.objects.filter(username=request.user,extension=id)
+        code_data=""
+        for item in items:
+            code_data+="<div class='code_item' display=none onclick='disp_code({})'><div class='item_body'>".format(item.id)
+            code_data+="<h2>{}</h2><table><tr><th>最終更新日</th><td>{}</td></tr><tr><th>詳細</th><td>{}</td></tr></table>".format(item.title,item.date.strftime("%Y/%m/%d"),item.discription)
+            code_data+="</div></div>"
+        return HttpResponse(code_data)
 
 #task
 class TaskView(LoginRequiredMixin,TemplateView):
@@ -270,3 +309,7 @@ def task_done(request,id):
         obj.done = True
         obj.save()
         return redirect('myNote:task')
+
+class LineAccountAddView(LoginRequiredMixin,TemplateView):
+    template_name = 'myNote/line.html'
+    redirect_field_name = 'redirect_to'

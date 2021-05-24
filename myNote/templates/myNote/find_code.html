@@ -1,0 +1,80 @@
+{% extends 'myNote/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'myNote/style.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div id="main">
+  <div class="content">
+    <div class="find_code">
+        <div class="find_code_title">
+            <h2>言語で探す</h2>
+            <div class="my_form">
+                <div class="user-box">
+                    {{form.extension}}
+                </div>
+                <button class="find_btn"><span></span><span></span><span></span><span></span>探す</button>
+            </div>
+        </div>
+        <div class="find_code_body">
+            
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id="details">
+  <div class="content">
+    <div id="archive">
+      <h2>アーカイブ</h2>
+      <div class="archive_list">
+        <ul>
+          {% for data in datas %}
+            <li><a href="{% url 'myNote:show_codes' data.id %}">{{data.title}}  <span>{{data.date|date:"Y/m/d"}}</span></a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$('.find_btn').on('click', function() {
+  var id = $('#id_extension').val();
+  var url = '/note/find_code/'+id
+  $.ajax({
+    url: url,
+    method: "GET",
+    // プレーンテキストを受信（他にはhtml、xml、script、json、jsonp等）
+    dataType: 'html',
+    // リクエストパラメータ
+    data: {
+        
+    },
+    timeout: 5000,
+  })
+  .done(function(data) {
+    // 通信成功時の処理を記述
+    $('.find_code_body').html(data);
+    var width = $('#main .content').width()/4;
+    $('.code_item').css({
+        'width':width,
+        'height':width
+    });
+    var delay_time = 0;
+    for (let i=0;i < $('.item_body').length;i++){
+        $(`.item_body:eq(${i})`).delay(delay_time).slideDown(700);
+        delay_time += 200;
+    }
+  })
+  .fail(function() {
+    // 通信失敗時の処理を記述
+    $('.alert_cont').text('GET処理失敗.');
+  });
+});
+function disp_code(id){
+  var code_url = '/note/codes/'+id+'/'
+  window.location.href = code_url;
+}
+</script>
+{% endblock content %}

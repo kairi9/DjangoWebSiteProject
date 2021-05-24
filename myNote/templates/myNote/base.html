@@ -24,6 +24,7 @@
             <li class="mycode"><a href="{% url 'myNote:note'%}">MyCode</a></li>
             <li class="new_code no_disp"><a href="{% url 'myNote:codes'%}">NewCode</a></li>
             <li class="file_upload no_disp"><a href="{% url 'myNote:upload_file'%}">FileUpload</a></li>
+            <li class="line"><a href="{% url 'myNote:line' %}">LINE</a></li>
           </ul>
           <p><a href="{% url 'accounts:logout' %}" class="scdColor">ログアウト</a></p>
         </div>
@@ -33,7 +34,7 @@
     {% endblock content %}
   </div>
   <script>
-  var pattern = /note\/codes\/\d\//
+  var pattern = /note\/codes\/\d{1,}\//
     $(function(){
       if(location.pathname === '/'){
         $('.todo').addClass('current_page');
@@ -45,6 +46,8 @@
           $('.mycode').addClass('current_page');
           $('.new_code').removeClass('no_disp');
           $('.new_code').addClass('current_page');
+      }else if(location.pathname === '/line_qr/'){
+          $('.line').addClass('current_page');
       }
     })
   </script>
