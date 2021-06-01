@@ -20,6 +20,42 @@
   border-top: 5px solid #1f253d;
 }
 
+.user-box {
+  height: 100%;
+  width: 50%;
+  float: left;
+  position: relative;
+  padding: 5px;
+}
+
+.user-box input, .user-box select {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: #2b3355;
+  border-radius: 10px;
+}
+
+.user-box input option, .user-box select option {
+  background-color: #1f253d;
+}
+
+.user-box label {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  padding: 10px 0;
+  color: #03e9f4;
+  font-size: 12px;
+  pointer-events: none;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
 html {
   height: 100%;
 }
@@ -1417,8 +1453,13 @@ body #wrapper .content {
   border-radius: 0 0 10px 10px;
 }
 
+.task_form form {
+  width: 100%;
+}
+
 .task_form form .user-box {
   position: relative;
+  width: 100%;
 }
 
 .task_form form .user-box input, .task_form form .user-box textarea {
@@ -1758,41 +1799,5 @@ body #wrapper .content {
 
 .find_code .find_code_body .code_item .item_body table td {
   text-align: left;
-}
-
-.user-box {
-  height: 100%;
-  width: 50%;
-  float: left;
-  position: relative;
-  padding: 5px;
-}
-
-.user-box input, .user-box select {
-  width: 100%;
-  padding: 10px 20px;
-  font-size: 14px;
-  color: #fff;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: #2b3355;
-  border-radius: 10px;
-}
-
-.user-box input option, .user-box select option {
-  background-color: #1f253d;
-}
-
-.user-box label {
-  position: absolute;
-  top: -30px;
-  left: 0;
-  padding: 10px 0;
-  color: #03e9f4;
-  font-size: 12px;
-  pointer-events: none;
-  -webkit-transition: .5s;
-  transition: .5s;
 }
 /*# sourceMappingURL=style.css.map */
